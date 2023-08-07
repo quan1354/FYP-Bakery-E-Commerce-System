@@ -1,0 +1,242 @@
+<div class="card card-flush">
+  <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+    <div class="card-title">
+      <div class="d-flex align-items-center position-relative my-1">
+        <span class="svg-icon svg-icon-1 position-absolute ms-4">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1"
+              transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
+            <path
+              d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+              fill="currentColor" />
+          </svg>
+        </span>
+        <input #s type="text" data-kt-ecommerce-product-filter="search"
+          class="form-control form-control-solid w-250px ps-14" placeholder="Search Order" />
+        <!--(keyup.enter)="searchProduct(s.value)"-->
+      </div>
+    </div>
+    <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+      <div class="w-100 mw-150px">
+        <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
+          data-placeholder="Status" data-kt-ecommerce-product-filter="status" (change)="onFilter($event)">
+          <option value="all" [defaultSelected]="true">All</option>
+          <option value="NEW">New</option>
+          <option value="PAID">Paid</option>
+          <option value="PROCESS">Process</option>
+          <option value="SHIP">Ship</option>
+          <option value="CANCELED">Cancel</option>
+          <option value="REFUND">Refund</option>
+          <option value="DELIVER">Deliver</option>
+          <option value="COMPLETE">Complete</option>
+        </select>
+      </div>
+      <!-- <a routerLink="/product/add-product" class="btn btn-primary">Add Product</a> -->
+    </div>
+  </div>
+  <div class="card-body py-3">
+    <div class="table-responsive">
+      <table class="table align-middle gs-0 gy-4">
+        <thead>
+          <tr class="fw-bolder text-muted bg-light">
+            <th class="ps-4 min-w-150px rounded-start text-center">Order ID</th>
+            <th class="min-w-125px text-center">Name</th>
+            <th class="min-w-200px text-center">Order Type</th>
+            <th class="min-w-150px text-center">Amount</th>
+            <th class="min-w-150px text-center">Date</th>
+            <th class="text-center min-w-100px">Status</th>
+            <th class="text-center min-w-70px">Actions</th>
+            <!-- <th class="min-w-200px text-end rounded-end"></th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of order | async">
+            <td class="text-center pe-0">
+              <span class="fw-bold">{{order.id}}</span>
+            </td>
+            <td class="text-center pe-0">
+              <span class="fw-bold">{{order.orderName}}</span>
+            </td>
+            <td class="text-center pe-0">
+              <span class="fw-bold ms-3">{{order.orderType}}</span>
+            </td>
+            <td class="text-center pe-0">
+              <span class="fw-bold">{{order.totalPrice | currency:'MYR'}}</span>
+            </td>
+            <td class="text-center pe-0">
+              <span class="fw-bold">{{order.createdAt|date:'medium'}}</span>
+            </td>
+            <td class="text-center pe-0">
+              <div class="badge"
+                [ngClass]="order.status === 'NEW'? 'badge-light-success': order.status === 'PAID'? 'badge-light-info': order.status === 'PROCESS'? 'badge-light-dark'  : order.status === 'SHIP'? 'badge-light-info' :order.status === 'DELIVER'? 'badge-light-danger':order.status === 'COMPLETE'? 'badge-light-success':'badge-light-secondary'">
+                {{order.status}}</div>
+            </td>
+            <td class="text-center">
+              <a class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" (click)="showOrderDetail(content)">
+                <i class="bi bi-eye-fill text-gray-700 fs-3 text-white"></i>
+              </a>
+            </td>
+            <ng-template #content let-modal>
+              <div class="modal-header">
+                <h4 class="modal-title">Order Detail</h4>
+                <button type="button" class="btn-close" aria-label="Close"
+                  (click)="modal.dismiss('Cross click')"></button>
+              </div>
+
+              <div class="modal-body pt-5 pb-5">
+                <div class="mb-8 mt-8">
+                  <div class="d-flex flex-stack py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <div class="ms-6">
+                      <div class="d-flex align-items-center fs-5 fw-bold text-dark text-hover-primary">Order ID</div>
+                    </div>
+                    <div class="text-end">
+                      <div class="fs-5 fw-bold text-dark">{{order.id}}</div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-stack py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <div class="ms-6">
+                      <div class="d-flex align-items-center fs-5 fw-bold text-dark text-hover-primary">Name</div>
+                    </div>
+                    <div class="text-end">
+                      <div class="fs-5 fw-bold text-dark">{{order.orderName}}</div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-stack py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <div class="ms-6">
+                      <div class="d-flex align-items-center fs-5 fw-bold text-dark text-hover-primary">Email</div>
+                    </div>
+                    <div class="text-end">
+                      <div class="fs-5 fw-bold text-dark">{{order.email}}</div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-stack py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <div class="ms-6">
+                      <div class="d-flex align-items-center fs-5 fw-bold text-dark text-hover-primary">Country</div>
+                    </div>
+                    <div class="text-end">
+                      <div class="fs-5 fw-bold text-dark">{{order.country}}</div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-stack py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <div class="ms-6">
+                      <div class="d-flex align-items-center fs-5 fw-bold text-dark text-hover-primary">Phone</div>
+                    </div>
+                    <div class="text-end">
+                      <div class="fs-5 fw-bold text-dark">{{order.phone}}</div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-stack py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <div class="ms-6">
+                      <div class="d-flex align-items-center fs-5 fw-bold text-dark text-hover-primary">Order Type</div>
+                    </div>
+                    <div class="text-end">
+                      <div class="fs-5 fw-bold text-dark">{{order.orderType}}</div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-stack py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <div class="ms-6">
+                      <div class="d-flex align-items-center fs-5 fw-bold text-dark text-hover-primary">Amount</div>
+                    </div>
+                    <div class="text-end">
+                      <div class="fs-5 fw-bold text-primary">{{order.totalPrice | currency:'MYR'}}</div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-stack py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <div class="ms-6">
+                      <div class="d-flex align-items-center fs-5 fw-bold text-dark text-hover-primary">Payment</div>
+                    </div>
+                    <div class="text-end">
+                      <div class="fs-5 fw-bold text-dark" *ngIf="order.paymentId">{{order.paymentId}}</div>
+                      <img *ngIf="order.paymentSlip" src="{{order.paymentSlip}}" style="width: 150px;height: 150px;">
+                    </div>
+                  </div>
+                  <div class="d-flex flex-stack py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <div class="ms-6">
+                      <div class="d-flex align-items-center fs-5 fw-bold text-dark text-hover-primary">Status</div>
+                    </div>
+                    <div class="text-end">
+                      <div class="fs-5 fw-bold text-dark">{{order.status}}</div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-stack py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <div class="ms-6">
+                      <div class="d-flex align-items-center fs-5 fw-bold text-dark text-hover-primary">Receive Time</div>
+                    </div>
+                    <div class="text-end">
+                      <div class="fs-5 fw-bold text-dark">{{order.receiveOrdertime}}</div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-stack py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <div class="ms-6">
+                      <div class="d-flex align-items-center fs-5 fw-bold text-dark text-hover-primary">Receive Date</div>
+                    </div>
+                    <div class="text-end">
+                      <div class="fs-5 fw-bold text-dark">{{order.receiveOrderDate}}</div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-stack py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <div class="ms-6">
+                      <div class="d-flex align-items-center fs-5 fw-bold text-dark text-hover-primary">Order Create time</div>
+                    </div>
+                    <div class="text-end">
+                      <div class="fs-5 fw-bold text-dark">{{order.createdAt | date:'medium'}}</div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-stack py-5 border-bottom border-gray-300 border-bottom-dashed" *ngIf="order.additionalInfo !== ''">
+                    <div class="ms-6">
+                      <div class="d-flex align-items-center fs-5 fw-bold text-dark text-hover-primary">Additional Info</div>
+                    </div>
+                    <div class="text-end">
+                      <div class="fs-5 fw-bold text-dark">{{order.additionalInfo}}</div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-stack py-5 border-bottom border-gray-300 border-bottom-dashed" *ngIf="order.address">
+                    <div class="ms-6">
+                      <div class="d-flex align-items-center fs-5 fw-bold text-dark text-hover-primary">Address</div>
+                    </div>
+                    <div class="text-end">
+                      <div class="fs-5 fw-bold text-dark">{{order.address}}</div>
+                    </div>
+                  </div>
+                  <app-map [order]="order" [readonly]="true" *ngIf="order.addressLatLng"></app-map>
+
+                  <table
+                  class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3 mt-10">
+                  <thead>
+                    <tr class="fw-bolder text-muted">
+                      <th class="min-w-100px text-center">Product</th>
+                      <th class="min-w-100px text-center">Quantity</th>
+                      <th class="min-w-100px text-center">Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of order.item">
+                      <td class="pe-0 text-center">
+                        <div>
+                          <img src="{{item.product.imageUrl}}" class="w-50px h-50px rounded-3 me-3" alt="">
+                          <span
+                            class="fw-bold text-gray-800 cursor-pointer text-hover-primary fs-6 me-1">{{item.product.name}}</span>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <span class="border-0 text-center px-0 fs-3 fw-bold text-gray-800 w-30px">x{{item.quantity}}</span>
+                      </td>
+                      <td class="text-center">
+                        <span class="fw-bold text-primary fs-2"
+                          data-kt-pos-element="item-total">{{item.product.price.priceValue|currency:"MYR"}}</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                </div>
+              </div>
+              <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary" (click)="modal.close('Close click')">Close</button>
+              </div>
+            </ng-template>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+<div class="card card-flush py-4 flex-row-fluid overflow-hidden">
+  <div class="card-header">
+    <div class="card-title">
+      <h2>Shopping Cart</h2>
+    </div>
+  </div>
+
+  <div class="card-body pt-0 pb-0">
+    <app-not-found
+      [visible]="!cart || !cart.items.length"
+      [notFoundMessage]="'Cart is Empty'"
+      resetLinkText="Go To Shop"
+    ></app-not-found>
+    <div class="table-responsive" *ngIf="cart && cart.items.length">
+      <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
+        <thead>
+          <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+            <th class="min-w-175px">Product</th>
+            <th class="min-w-70px text-center">Qty</th>
+            <th class="min-w-100px text-end">Action</th>
+            <th class="min-w-100px text-end">Unit Price</th>
+            <th class="min-w-100px text-end">Total</th>
+          </tr>
+        </thead>
+        <tbody class="fw-semibold text-gray-600">
+          <tr *ngFor="let item of cart.items">
+            <td>
+              <div class="d-flex align-items-center">
+
+                <a href="/metronic8/demo1/../demo1/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                  <span class="symbol-label" style="background-image:url({{item.product.imageUrl}});"></span>
+                </a>
+
+                <div class="ms-5">
+                  <a href="/metronic8/demo1/../demo1/apps/ecommerce/catalog/edit-product.html"
+                    class="fw-bold text-gray-600 text-hover-primary">{{item.product.name}}</a>
+                </div>
+
+              </div>
+            </td>
+            <td class="pe-0" >
+              <div class="input-group w-md-150px" style="margin:auto">
+                <button class="btn btn-icon btn-outline btn-active-color-primary" type="button" (click)="changeQuantity(item, quantityEnter.value, 'down')">
+                  <i class="bi bi-dash fs-1"></i>
+                </button>
+
+                <input #quantityEnter type="text" [value]="item.quantity" class="form-control" (change)="changeQuantity(item, quantityEnter.value, '')" placeholder="Qty" style="text-align: center;"/>
+
+                <button class="btn btn-icon btn-outline btn-active-color-primary" type="button" (click)="changeQuantity(item, quantityEnter.value, 'up')">
+                  <i class="bi bi-plus fs-1"></i>
+                </button>
+              </div>
+            </td>
+            <td class="text-end">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-trash-fill" viewBox="0 0 16 16" (click)="removeFromCart(item)" style="cursor: pointer;">
+                  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                </svg>
+              </span>
+            </td>
+            <td class="text-end">{{item.product.price.priceValue | currency}}</td>
+            <td class="text-end">{{item.itemPrice | currency}}</td>
+          </tr>
+          <tr>
+            <td colspan="4" class="text-end">Subtotal</td>
+            <td class="text-end">{{cart.totalPrice | currency}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align:right; padding-top:1rem">
+        <a href="checkout" class="btn btn-sm fw-bold btn-primary" [routerLink]="'/check-out'">Check Out</a>
+      </div>
+    </div>
+  </div>
+</div>

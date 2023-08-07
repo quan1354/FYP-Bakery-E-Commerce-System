@@ -1,0 +1,18 @@
+.tags{
+  flex: 9;
+}
+
+.tags span{
+  background-color: whitesmoke;
+  display: inline-block;
+  font-size: 1.5rem;
+  margin-right: 0.3rem;
+  border-radius: 0.475rem;
+  margin-top: 0.25rem;
+  align-items: center;
+  transition: .13s ease-out;
+  position: relative;
+  z-index: 1;
+  outline: 0;
+  display: inline-flex;
+}

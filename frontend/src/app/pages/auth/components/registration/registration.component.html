@@ -1,0 +1,163 @@
+<form
+  class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework"
+  novalidate="novalidate"
+  id="kt_login_signup_form"
+  [formGroup]="registerForm" (ngSubmit)="submit()"
+>
+  <div class="mb-10 text-center">
+    <h1 class="text-dark mb-3">Create an Account</h1>
+    <div class="text-gray-400 fw-bold fs-4">
+      Already have an account?
+      <a
+        routerLink="/auth/login"
+        class="link-primary fw-bolder"
+        [style.margin-left]="'5px'"
+        >Sign in?</a
+      >
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-light-primary fw-bolder w-100 mb-10">
+    <img
+      alt="Logo"
+      src="./assets/media/svg/brand-logos/google-icon.svg"
+      class="h-20px me-3"
+    />Sign in with Google
+  </button>
+
+  <div class="d-flex align-items-center mb-10">
+    <div class="border-bottom border-gray-300 mw-50 w-100"></div>
+    <span class="fw-bold text-gray-400 fs-7 mx-2">OR</span>
+    <div class="border-bottom border-gray-300 mw-50 w-100"></div>
+  </div>
+
+  <div class="row fv-row mb-7">
+    <label class="form-label fw-bolder text-dark fs-6">Name</label>
+    <input
+      class="form-control form-control-lg form-control-solid"
+      type="text"
+      name="name"
+      formControlName="name"
+      placeholder="Name"
+      autocomplete="off"
+    />
+    <div class="error-list" *ngIf="isSubmitted && fc.name.errors">
+      <div *ngIf="fc.name.errors.required">Please Enter Your Name</div>
+    </div>
+  </div>
+
+  <div class="fv-row mb-7">
+    <label class="form-label fw-bolder text-dark fs-6">Email</label>
+    <input
+      class="form-control form-control-lg form-control-solid"
+      type="email"
+      placeholder="Email"
+      name="email"
+      formControlName="email"
+      autocomplete="off"
+    />
+    <div class="error-list" *ngIf="isSubmitted && fc.email.errors">
+      <div *ngIf="fc.email.errors.required">Please Enter Email</div>
+      <div *ngIf="fc.email.errors.email">Please Enter valid Email format</div>
+    </div>
+  </div>
+
+  <div class="mb-10 fv-row">
+    <label class="form-label fw-bolder text-dark fs-6">Password</label>
+    <input
+      class="form-control form-control-lg form-control-solid"
+      type="password"
+      placeholder="Password"
+      name="password"
+      formControlName="password"
+      autocomplete="off"
+    />
+    <div class="error-list" *ngIf="isSubmitted && fc.password.errors">
+      <div *ngIf="fc.password.errors.required">Please Enter Password</div>
+      <div *ngIf="fc.password.errors.minlength">password must more than 5 character</div>
+    </div>
+  </div>
+
+  <div class="fv-row mb-5">
+    <label class="form-label fw-bolder text-dark fs-6">Confirm Password</label>
+    <input
+      class="form-control form-control-lg form-control-solid"
+      type="password"
+      placeholder="Confirm password"
+      name="confirmPassword"
+      autocomplete="off"
+      formControlName="confirmPassword"
+    />
+    <div class="error-list" *ngIf="isSubmitted && fc.confirmPassword.errors">
+      <div *ngIf="fc.confirmPassword.errors.required">Please Confirm Password</div>
+      <div *ngIf="fc.confirmPassword.errors.minlength">password must more than 5 character</div>
+      <div *ngIf="fc.confirmPassword.errors.notMatch">password and confirm password not match</div>
+    </div>
+  </div>
+
+  <div class="fv-row mb-10">
+    <div class="form-check form-check-custom form-check-solid">
+      <input
+        id="kt_login_toc_agree"
+        type="checkbox"
+        formControlName="agree"
+        name="agree"
+        class="form-check-input"
+      />
+
+      <label
+        for="kt_login_toc_agree"
+        class="form-check-label fw-bold text-gray-700 fs-6"
+      >
+        I Agree the&nbsp;<a
+          href="https://keenthemes.com/metronic/?page=faq"
+          target="_blank"
+          class="ms-1 link-primary"
+          >terms and conditions</a
+        >.
+      </label>
+      <div class="error-list" *ngIf="isSubmitted && fc.agree.errors">
+        <div *ngIf="fc.agree.errors.required">Please agree term and condition</div>
+      </div>
+    </div>
+  </div>
+  <!--end::Form group-->
+
+  <!--begin::Form group-->
+  <div class="text-center">
+    <button
+      type="submit"
+      class="btn btn-lg btn-primary w-100 mb-5"
+    > Sign Up
+    </button>
+    <a
+      routerLink="/auth/login"
+      type="button"
+      id="kt_login_signup_form_cancel_button"
+      class="btn btn-lg btn-light-primary w-100 mb-5"
+    >
+      Cancel
+    </a>
+  </div>
+  <!--end::Form group-->
+</form>
+
+<ng-template
+  #formError
+  let-control="control"
+  let-message="message"
+  let-validation="validation"
+>
+  <ng-container
+    *ngIf="control.hasError(validation) && (control.dirty || control.touched)"
+  >
+    <div class="fv-plugins-message-container">
+      <div class="fv-help-block">
+        <span role="alert">
+          {{ message }}
+        </span>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>
+

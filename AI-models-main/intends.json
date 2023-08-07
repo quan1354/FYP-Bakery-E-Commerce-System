@@ -1,0 +1,95 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hi",
+        "Hey",
+        "How are you",
+        "Is anyone there?",
+        "Hello",
+        "Good day"
+      ],
+      "responses": [
+        "Hey :-)",
+        "Hi there, what can I do for you?",
+        "Hi there, how can I help?"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "See you later", "Goodbye"],
+      "responses": [
+        "See you later, thanks for visiting",
+        "Have a nice day",
+        "Bye! Come back again soon."
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["Thanks", "Thank you", "That's helpful", "Thank's a lot!"],
+      "responses": ["Happy to help!", "Any time!", "My pleasure"]
+    },
+    {
+      "tag": "items",
+      "patterns": [
+        "Which items do you have?",
+        "What kinds of items are there?",
+        "What do you sell?",
+        "What service do you provide?"
+      ],
+      "responses": [
+        "We sell coffee and tea.For more details you can check our website page.",
+        "We have coffee and tea.For more details you can check our website page."
+      ]
+    },
+    {
+      "tag": "payments",
+      "patterns": [
+        "Do you take credit cards?",
+        "Do you accept Mastercard?",
+        "Can I pay with Paypal?",
+        "Are you cash only?",
+        "What is the payment method?"
+      ],
+      "responses": [
+        "We accept VISA, Mastercard and Paypal",
+        "We accept most major credit cards, and Paypal"
+      ]
+    },
+    {
+      "tag": "hate",
+      "patterns": [
+        "Not satisfied with your service",
+        "Prducts are worst and not satisfied",
+        "Very poor service",
+        "Product quality need to be improved",
+        "Worst products"
+      ],
+      "responses": [
+        "Sorry for the inconvenience",
+        "We will try to improve our service sir"
+      ]
+    },
+    {"tag": "time",
+    "patterns": ["what operation time", "when open", "which day open"],
+    "responses": ["Our bakery open from moning 10a.m. until night 9p.m. everyday except public holiday"]
+    },
+    {"tag": "address",
+    "patterns": ["where is bakery", "give me bakery address", "how to go LEPAN bakery", "tell me address"],
+    "responses": ["Our bakery location is 3A-G-13D, Straits Quay, Jalan Seri Tg Pinang, Seri Tanjung Pinang, 10470 Tanjung Tokong, 10470 Penang, Malaysia."]
+    },
+    {"tag": "delivery",
+    "patterns": ["what delivery did LEPAN bakery provide?", "bakery delivery", "when can I receive my bread", "how long does delivery take",   "How long does delivery take?", "How long does shipping take?", "When do I get my delivery?", "what is the delivery time"],
+    "responses": ["Our bakery deliver your breads through Food Panda or GrabFood, you can receive bread within 2-3 days"]
+    },
+    {"tag": "Brown Rice Milk Loaf",
+    "patterns": ["Brown Rice Milk Loaf", "what is brown rice milk loaf?", "Brown Rice Milk Loaf price", "Brown Rice Milk Loaf ingredient", "Brown Rice Milk Loaf half and whole"],
+    "responses": ["Brown Rice Milk Loaf made with Unbleached wheat flour, leaven, rice milk, filtered water, oil, sugar, natural sea salt, categorize into hald and wolrd, for half price is 14, whole is 26"]
+    },
+    {"tag": "Wholemeal Loaf",
+    "patterns": ["what is Wholemeal Loaf?", "Wholemeal Loaf price", "Wholemeal Loaf ingredient", "Wholemeal Loaf half and whole", "Wholemeal loaf"],
+    "responses": ["Wholemeal Loaf made with Unbleached wheat flour, leaven, rice milk, wholemeal  flour, filtered water, oil, sugar, natural sea salt, oat., categorize into hald and wolrd, for half price is 16, whole is 30"]
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+<div class="card card-flush">
+  <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+    <div class="card-title">
+      <div class="d-flex align-items-center position-relative my-1">
+        <span class="svg-icon svg-icon-1 position-absolute ms-4">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1"
+              transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
+            <path
+              d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+              fill="currentColor" />
+          </svg>
+        </span>
+        <input #s type="text" data-kt-ecommerce-product-filter="search"
+          class="form-control form-control-solid w-250px ps-14" (keyup.enter)="searchCust(s.value)" placeholder="Search Customer" />
+      </div>
+    </div>
+    <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+      <!-- <div class="w-100 mw-150px">
+        <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
+          data-placeholder="Status" data-kt-ecommerce-product-filter="status">
+          <option value="all" [defaultSelected]="true">All</option>
+          <option value="NEW">New</option>
+          <option value="PAID">Paid</option>
+          <option value="PROCESS">Process</option>
+          <option value="SHIP">Ship</option>
+          <option value="CANCELED">Cancel</option>
+          <option value="REFUND">Refund</option>
+          <option value="DELIVER">Deliver</option>
+          <option value="COMPLETE">Complete</option>
+        </select>
+      </div> -->
+      <div class="symbol symbol-45px">
+        <div class="symbol-label fs-2 fw-semibold text-success" (click)="refreshTable()" style="cursor:pointer;"><i class="bi bi-arrow-clockwise fs-2"></i></div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body py-3">
+    <div class="table-responsive">
+      <table class="table align-middle gs-0 gy-4">
+        <thead>
+          <tr class="fw-bolder text-muted bg-light">
+            <th class="ps-4 min-w-100px rounded-start text-center">User</th>
+            <th class="min-w-150px text-center">Phone</th>
+            <th class="min-w-150px text-center">Admin</th>
+            <th class="min-w-150px text-center">Country</th>
+            <th class="min-w-150px text-center">Address</th>
+            <th class="min-w-70px text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users | async">
+            <td class="d-flex align-items-center">
+              <!--begin:: Avatar -->
+              <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                <a>
+                  <div class="symbol-label">
+                    <img [src]="user.avatar?user.avatar:'../../../../assets/media/icons/duotune/communication/com006.svg'" class="w-100">
+                  </div>
+                </a>
+              </div>
+              <div class="d-flex flex-column">
+                <a class="text-gray-800 fw-bold mb-1">{{user.name}}</a>
+                <span class="fw-bold">{{user.email}}</span>
+              </div>
+            </td>
+            <td class="text-center pe-0">
+              <span class="fw-bold ms-3">{{user.phone}}</span>
+            </td>
+            <td class="text-center pe-0">
+              <div class="badge badge-lg fw-bold" [ngClass]="user.isAdmin === true ? 'badge-light-success':'badge-light-primary'"><span>{{user.isAdmin}}</span></div>
+            </td>
+            <td class="text-center pe-0">
+              <span class="fw-bold">{{user.country?user.country:'None'}}</span>
+            </td>
+            <td class="text-center pe-0">
+              <span class="fw-bold">{{user.address}}</span>
+            </td>
+            <td class="text-center pe-0">
+              <div _ngcontent-cav-c190="" class="d-flex justify-content-center flex-shrink-0">
+                <a _ngcontent-cav-c190="" routerlink="/admin-product/add-product"
+                  (click)="editCust(user.id)"
+                  class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                  ng-reflect-router-link="/admin-product/add-product"><span _ngcontent-cav-c190=""
+                    ng-reflect-inline-s-v-g="./assets/media/icons/duotune/a" class="svg-icon svg-icon-3"><svg
+                      _ngcontent-cav-c190="" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path _ngcontent-cav-c190="" opacity="0.3"
+                        d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z"
+                        fill="currentColor"></path>
+                      <path _ngcontent-cav-c190=""
+                        d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z"
+                        fill="currentColor"></path>
+                    </svg></span>
+                </a>
+                <a _ngcontent-cav-c190="" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"><span
+                    (click)="deleteCust(user.id)"
+                    ng-reflect-inline-s-v-g="./assets/media/icons/duotune/g" class="svg-icon svg-icon-3"><svg
+                      _ngcontent-cav-c190="" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path _ngcontent-cav-c190=""
+                        d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
+                        fill="currentColor"></path>
+                      <path _ngcontent-cav-c190="" opacity="0.5"
+                        d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
+                        fill="currentColor"></path>
+                      <path _ngcontent-cav-c190="" opacity="0.5"
+                        d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="currentColor">
+                      </path>
+                    </svg></span>
+                </a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

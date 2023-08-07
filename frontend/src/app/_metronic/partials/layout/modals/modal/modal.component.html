@@ -1,0 +1,43 @@
+<ng-template #modal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <!--begin::Modal title-->
+      <h2>{{ modalConfig.modalTitle }}</h2>
+      <!--end::Modal title-->
+      <!--begin::Close-->
+      <div class="btn btn-sm btn-icon btn-active-color-primary" (click)="dismiss()"
+        *ngIf="modalConfig.hideDismissButton === undefined || !modalConfig.hideDismissButton()">
+        <span class="svg-icon svg-icon-1" [inlineSVG]="'./assets/media/icons/duotune/arrows/arr061.svg'"></span>
+        <!--end::Svg Icon-->
+      </div>
+      <!--end::Close-->
+    </div>
+    <div class="modal-body">
+      <div class="card-body text-center">
+        <div class="bgi-no-repeat bgi-position-center bgi-size-cover card-rounded mb-10"
+          style="margin-inline:auto;height: 266px;width:266px;background-image:url({{product.imageUrl}})">
+        </div>
+        <div class=" fs-2 fw-semibold text-center">
+          <div class="text-primary ">
+            Category: {{product.category}}
+          </div><br>
+          <div class="text-gray-600">
+            {{product.tag}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary" (click)="dismiss()"
+        *ngIf="modalConfig.hideDismissButton === undefined || !modalConfig.hideDismissButton()"
+        [disabled]="modalConfig.disableDismissButton !== undefined && modalConfig.disableDismissButton()">
+        {{ modalConfig.dismissButtonLabel }}
+      </button>
+      <button type="button" class="btn btn-outline-secondary" (click)="close()"
+        *ngIf="modalConfig.hideCloseButton === undefined || !modalConfig.hideCloseButton()"
+        [disabled]="modalConfig.disableCloseButton !== undefined && modalConfig.disableCloseButton()">
+        {{ modalConfig.closeButtonLabel }}
+      </button>
+    </div>
+  </div>
+</ng-template>

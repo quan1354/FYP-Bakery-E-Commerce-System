@@ -1,0 +1,28 @@
+.tags{
+  flex: 9;
+}
+
+.tags span{
+  border-radius: 2rem;
+  background-color: whitesmoke;
+  display: inline-block;
+  font-size: 1rem;
+  color: grey;
+  margin-right: 0.3rem;
+  padding: 0 0.5rem;
+  margin-top: 0.2rem;
+}
+
+
+.star {
+  font-size: 3rem;
+  color: #b0c4de;
+}
+.filled {
+  color: #ff8c00;
+}
+.bad {
+  color: #deb0b0;
+}
+
+

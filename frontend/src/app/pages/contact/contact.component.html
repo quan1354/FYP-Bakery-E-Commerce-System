@@ -1,0 +1,85 @@
+<div class="card">
+  <div class="card-body p-lg-17">
+    <div class="row mb-3">
+      <div class="col-md-6 pe-lg-10">
+        <form action="" class="form mb-15" method="post" id="kt_contact_form" [formGroup]="contactFrom">
+          <h1 class="fw-bold text-dark mb-9">Send Us Email</h1>
+          <div class="row mb-5">
+            <div class="col-md-6 fv-row">
+              <label class="fs-5 fw-semibold mb-2">Name</label>
+              <input type="text" formControlName="name" class="form-control form-control-solid" placeholder=""
+                name="name" required />
+              <app-input-validation [control]="fc.name" [showErrorsWhen]="isSubmit"></app-input-validation>
+            </div>
+            <div class="col-md-6 fv-row">
+              <label class="fs-5 fw-semibold mb-2">Email</label>
+              <input type="text" formControlName="email" class="form-control form-control-solid" placeholder=""
+                name="email" required />
+              <app-input-validation [control]="fc.email" [showErrorsWhen]="isSubmit"></app-input-validation>
+            </div>
+          </div>
+          <div class="d-flex flex-column mb-5 fv-row">
+            <label class="fs-5 fw-semibold mb-2">Subject</label>
+            <input class="form-control form-control-solid" formControlName="subject" placeholder="" name="subject" />
+            <app-input-validation [control]="fc.subject" [showErrorsWhen]="isSubmit"></app-input-validation>
+          </div>
+
+          <div class="d-flex flex-column mb-10 fv-row">
+            <label class="fs-6 fw-semibold mb-2">Message</label>
+            <textarea class="form-control form-control-solid" formControlName="message" rows="6" name="message"
+              placeholder="" required></textarea>
+            <app-input-validation [control]="fc.message" [showErrorsWhen]="isSubmit"></app-input-validation>
+          </div>
+          <button type="submit" class="btn btn-primary" id="kt_contact_submit_button" (click)="submit()">
+            <span class="indicator-label">Send Feedback</span>
+            <span class="indicator-progress">Please wait...
+              <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+          </button>
+        </form>
+      </div>
+      <div class="col-md-6 ps-lg-10">
+        <div class="mapContainer">
+          <div #map class="map">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row g-5 mb-5 mb-lg-15">
+      <div class="col-sm-6 pe-lg-10">
+        <div class="text-center bg-light card-rounded d-flex flex-column justify-content-center p-10 h-100">
+          <h1 class="text-dark fw-bold my-5">Let’s Speak</h1>
+          <div class="text-gray-700 fw-semibold fs-2">04-890 8295</div>
+        </div>
+      </div>
+      <div class="col-sm-6 ps-lg-10">
+        <div class="text-center bg-light card-rounded d-flex flex-column justify-content-center p-10 h-100">
+          <span class="svg-icon svg-icon-3tx svg-icon-primary">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path opacity="0.3"
+                d="M18.0624 15.3453L13.1624 20.7453C12.5624 21.4453 11.5624 21.4453 10.9624 20.7453L6.06242 15.3453C4.56242 13.6453 3.76242 11.4453 4.06242 8.94534C4.56242 5.34534 7.46242 2.44534 11.0624 2.04534C15.8624 1.54534 19.9624 5.24534 19.9624 9.94534C20.0624 12.0453 19.2624 13.9453 18.0624 15.3453Z"
+                fill="currentColor" />
+              <path
+                d="M12.0624 13.0453C13.7193 13.0453 15.0624 11.7022 15.0624 10.0453C15.0624 8.38849 13.7193 7.04535 12.0624 7.04535C10.4056 7.04535 9.06241 8.38849 9.06241 10.0453C9.06241 11.7022 10.4056 13.0453 12.0624 13.0453Z"
+                fill="currentColor" />
+            </svg>
+          </span>
+          <h1 class="text-dark fw-bold my-5">Our Bakery</h1>
+          <div class="text-gray-700 fs-3 fw-semibold">3A-G-13D, Straits Quay, Jalan Seri Tg Pinang, Seri Tanjung Pinang,
+            10470 Tanjung Tokong, 10470 Penang, Malaysia.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-4 bg-light text-center">
+      <div class="card-body py-12">
+        <a href="#" class="mx-4">
+          <img src="assets/media/svg/brand-logos/facebook-4.svg" class="h-30px my-2" alt="" />
+        </a>
+        <a href="#" class="mx-4">
+          <img src="assets/media/svg/brand-logos/instagram-2-1.svg" class="h-30px my-2" alt="" />
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,249 @@
+<div>
+  <div class="card card-flush h-xl-100">
+    <div class="card-flush-solid d-flex flex-stack flex-wrap  bg-primary" style="padding: 1rem 1.5rem;">
+      <!---->
+      <div class="menu fw-semibold" data-kt-menu="true" style="font-size: 20px; flex-flow: wrap;">
+        <!-- <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="hover"
+          data-kt-menu-placement="bottom-start">
+          <a class="menu-link">
+            <span class="mainLink" routerLink="/category/All">Bread</span>
+          </a>
+          <div class="menu-sub menu-sub-dropdown w-280px py-2">
+            <div class="menu-item">
+              <a class="menu-link">
+                <span class="menu-title" routerLink="/category/Marble">Marble Bread</span>
+              </a>
+            </div>
+            <div class="menu-item">
+              <a  class="menu-link">
+                <span class="menu-title" routerLink="/category/Country">Country Bread</span>
+              </a>
+            </div>
+            <div class="menu-item">
+              <a class="menu-link">
+                <span class="menu-title" routerLink="/category/French">French Bread</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <a class="menu-link">
+            <span class="mainLink" routerLink="/category/Loaf">Loaf</span>
+          </a>
+        </div>
+        <div class="menu-item">
+          <a class="menu-link">
+            <span class="mainLink" routerLink="/category/Baguette">Baguette</span>
+          </a>
+        </div>
+        <div class="menu-item">
+          <a class="menu-link">
+            <span class="mainLink" routerLink="/category/Sourdough">Sourdough</span>
+          </a>
+        </div>
+        <div class="menu-item">
+          <a class="menu-link">
+            <span class="mainLink" routerLink="/category/Ciabatta">Ciabatta</span>
+          </a>
+        </div>
+        <div class="menu-item">
+          <a class="menu-link">
+            <span class="mainLink" routerLink="/category/Bun">Bun</span>
+          </a>
+        </div>
+        <div class="menu-item">
+          <a class="menu-link">
+            <span class="mainLink" routerLink="/category/Doughnut">Doughnut</span>
+          </a>
+        </div> -->
+        <div class="menu-item" *ngFor="let cat of category | async">
+          <a class="menu-link">
+            <span class="mainLink text-white" routerLink="/category/{{cat.name}}">{{cat.name}}({{cat.count}})</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-wrap gap-4 p-3"
+      style="width: 100%;justify-content: end;background-color: rgb(106, 211, 214);">
+      <div class="d-flex align-items-center fw-bold">
+        <select id="shopFilter" class="form-select" data-control="select2" data-hide-search="true"
+          data-placeholder="Filter" data-kt-ecommerce-product-filter="filter" (change)="onFilter($event)">
+          <!---->
+          <option value="all" [defaultSelected]="true">All</option>
+          <option value="ascending">Ascending</option>
+          <option value="descending">Descending</option>
+        </select>
+      </div>
+      <div class="position-relative my-1" style="width: 180px;">
+        <input #s type="text" data-kt-table-widget-4="search" class="form-control form-control w-160px fs-7 ps-12"
+          placeholder="Search" (keyup.enter)="search(s.value)" /> <!-- -->
+        <span class="svg-icon svg-icon-2 position-absolute top-50 translate-middle-y ms-4" (click)="search(s.value)">
+          <!---->
+          <svg width="30" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1"
+              transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
+            <path
+              d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+              fill="currentColor" />
+          </svg>
+        </span>
+      </div>
+    </div>
+    <div class="card-body">
+      <app-not-found [visible]="!products || productIsEmpty === true" [resetLinkText]="'Reset Search'"></app-not-found>
+      <div class="row g-5 g-xl-10 ">
+        <div class="col-sm-6 col-xl-4" *ngFor="let prod of products | async; let i = index">
+          <div class="card card-flush-solid h-xl-200 bg-gray-100">
+            <div class="card-body text-center pb-5">
+              <div class="ribbon ribbon-end">
+                  <div class="ribbon-label bg-danger" *ngIf="prod.status === 'out-stock' || prod.price.stockQuantity <=0">Out Stock</div>
+              </div>
+
+              <a class="d-block overlay" data-fslightbox="lightbox-hot-sales">
+                <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded mb-7"
+                  style="height: 255px;">
+                  <img [src]="prod.imageUrl" alt="" style="width: 255px;height:255px">
+                </div>
+                <div class="overlay-layer card-rounded bg-dark bg-opacity-25 cursor-pointer"
+                  (click)="open(content,prod)">
+                  <i class="bi bi-eye-fill fs-2x text-white"></i>
+                </div>
+              </a>
+              <div class="d-flex align-items-end flex-stack mb-1" style="justify-content: between;">
+                <div class="text-start">
+                  <span
+                    class="fw-bold text-gray-800 cursor-pointer text-hover-primary fs-4 d-block">{{prod.name}}</span>
+                </div>
+                <div class="text-end">
+                  <span class="text-gray-600 text-end fw-bold fs-6">{{prod.price.priceValue | currency}}</span>
+
+                </div>
+              </div>
+            </div>
+            <div class="card-footer d-flex flex-stack pt-0">
+              <div class="fv-row" style="width:30%;padding:10px;">
+                <input #quantityEnter [value]="'1'" type="number" class="form-control mb-3 mb-lg-0" min="1"
+                  placeholder="qty" name="fName" style="text-align: center;" />
+              </div>
+
+              <!-- <div style="display: flex;">
+                  <a class="btn btn-active-color-primary cursor-pointer" [ngClass]="{active:activeBreadType === 'half'}"
+                    (click)="setBreadType('half')" *ngIf="prod.category === 'Loaf'" style="padding: 0 1rem 0 0;">HALF</a>
+                  <a class="btn btn-active-color-primary cursor-pointer" [ngClass]="{active:activeBreadType === 'whole'}"
+                    (click)="setBreadType('whole')" *ngIf="prod.category === 'Loaf'"
+                    style="padding: 0 1rem 0 0;">WHOLE</a>
+                  <a class="btn btn-active-color-primary cursor-pointer"
+                    [ngClass]="{active:activeBreadType === 'gram550'}" *ngIf="prod.name === 'Classic Ciabatta'"
+                    (click)="setBreadType('gram550')" style="padding: 0 1rem 0 0;">550g</a>
+                  <a class="btn btn-active-color-primary cursor-pointer"
+                    [ngClass]="{active:activeBreadType === 'gram180'}" *ngIf="prod.name === 'Classic Ciabatta'"
+                    (click)="setBreadType('gram180')" style="padding: 0 1rem 0 0;">180g</a>
+                </div> -->
+
+              <!-- <select class="form-select form-control form-control-body w-100px mr-7">
+                  <option value="whole" (click)="setBreadType('whole')" *ngIf="prod.category === 'Loaf'">Whole</option>
+                  <option value="half" (click)="setBreadType('half')" *ngIf="prod.category === 'Loaf'">Half</option>
+                  <option value="gram550" *ngIf="prod.name === 'Classic Ciabatta'" (click)="setBreadType('gram550')">550g</option>
+                  <option value="gram180" *ngIf="prod.name === 'Classic Ciabatta'" (click)="setBreadType('gram180')">180g</option>
+                </select> -->
+
+              <a class="btn btn-sm btn-primary flex-shrink-0" data-bs-target="#kt_modal_breadDetail"
+                data-bs-toggle="modal" (click)="addToCart(prod, quantityEnter.value)">Add To Cart</a>
+            </div>
+          </div>
+        </div>
+        <ng-template #content let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">{{pointerProduct.name}}</h4>
+            <button type="button" class="btn-close" aria-label="Close"
+              (click)="modal.dismiss('Cross click')"></button>
+          </div>
+          <div class="modal-body fs-5">
+            <div class="card-body text-center">
+              <div class="bgi-no-repeat bgi-position-center bgi-size-cover card-rounded mb-10"
+                style="margin-inline:auto;height: 266px;width:266px;background-image:url({{pointerProduct.imageUrl}})"></div>
+              <div class="d-flex flex-stack py-5 border-bottom border-top border-gray-300">
+                <div class="ms-6">
+                  <div class="d-flex align-items-center fs-5 fw-bold text-dark ">Category</div>
+                </div>
+                <div class="text-end">
+                  <div class="fs-5 fw-bold text-primary">{{pointerProduct.category}}</div>
+                </div>
+              </div>
+              <div class="d-flex flex-stack py-5 border-bottom border-gray-300" *ngIf="pointerProduct.description">
+                <div class="ms-6">
+                  <div class="d-flex align-items-center fs-5 fw-bold text-dark ">Description</div>
+                </div>
+                <div class="text-end">
+                  <div class="fs-5 fw-bold text-primary">{{pointerProduct.description}}</div>
+                </div>
+              </div>
+              <div class="d-flex flex-stack py-5 border-bottom border-gray-300">
+                <div class="ms-6">
+                  <div class="d-flex align-items-center fs-5 fw-bold text-dark ">Price</div>
+                </div>
+                <div class="text-end">
+                  <div class="fs-5 fw-bold text-primary">{{pointerProduct.price.priceValue|currency:'MYR'}}</div>
+                </div>
+              </div>
+              <div class="d-flex flex-stack py-5 border-bottom border-gray-300">
+                <div class="ms-6">
+                  <div class="d-flex align-items-center fs-5 fw-bold text-dark ">Quantity</div>
+                </div>
+                <div class="text-end">
+                  <div class="fs-5 fw-bold text-primary">{{pointerProduct.price.stockQuantity}}</div>
+                </div>
+              </div>
+              <div class="d-flex flex-stack py-5 border-bottom border-gray-300">
+                <div class="ms-6">
+                  <div class="d-flex align-items-center  fs-5 fw-bold text-dark ">Tags</div>
+                </div>
+                <div class="text-end">
+                  <div class="fs-5 tags">
+                    <span *ngFor="let tag of pointerProduct.tag">
+                      {{tag}}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex flex-stack py-5 border-bottom border-gray-300">
+                <div class="ms-6">
+                  <div class="d-flex align-items-center fs-5 fw-bold text-dark ">Rating</div>
+                </div>
+                <div>
+                  <ngb-rating [(rate)]="rateNum" (rateChange)="changeRate()">
+                    <ng-template let-fill="fill" let-index="index">
+                      <span class="star" [class.filled]="fill === 100">&#9733;</span>
+                    </ng-template>
+                  </ngb-rating>
+                </div>
+              </div>
+              <div>
+                <div class="fs-2 text-dark fw-bold" style="margin: 1em;">
+                  Suggestion For You
+                </div>
+                <div class="d-flex flex-stack" style="margin: 1em;" *ngFor="let suggest of similarProduct">
+                  <div class="symbol symbol-40px me-5">
+                    <img [src]="suggest.imageUrl" class="h-50 align-self-center" alt="">
+                  </div>
+                  <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                    <div class="flex-grow-1 me-2">
+                      <a
+                        class="text-gray-800 text-hover-primary fs-6 fw-bold" style="cursor: pointer;" (click)="close(content,suggest)">{{suggest.name}}</a>
+                      <span class="text-muted fw-semibold d-block fs-7">{{suggest.category}}</span>
+                    </div>
+                    <a class="btn btn-sm btn-primary fs-5 fw-bold" (click)="close(content,suggest)">view</a>
+                  </div>
+                  <div class="separator separator-dashed my-4"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer" style="justify-content: center;">
+            <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">Close</button>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

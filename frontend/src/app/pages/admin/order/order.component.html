@@ -1,0 +1,334 @@
+<div class="card card-flush">
+  <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+    <div class="card-title">
+      <div class="d-flex align-items-center position-relative my-1">
+        <span class="svg-icon svg-icon-1 position-absolute ms-4">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1"
+              transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
+            <path
+              d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+              fill="currentColor" />
+          </svg>
+        </span>
+        <input #s type="text" data-kt-ecommerce-product-filter="search"
+          class="form-control form-control-solid w-250px ps-14" (keyup.enter)="searchOrder(s.value)" placeholder="Search Order" />
+      </div>
+    </div>
+    <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+      <div class="w-100 mw-150px">
+        <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
+          data-placeholder="Status" data-kt-ecommerce-product-filter="status" (change)="onFilter($event)">
+          <option value="all" [defaultSelected]="true">All</option>
+          <option value="NEW">New</option>
+          <option value="PAID">Paid</option>
+          <option value="PROCESS">Process</option>
+          <option value="SHIP">Ship</option>
+          <option value="CANCELED">Cancel</option>
+          <option value="REFUND">Refund</option>
+          <option value="DELIVER">Deliver</option>
+          <option value="COMPLETE">Complete</option>
+        </select>
+      </div>
+      <div class="symbol symbol-45px">
+        <div class="symbol-label fs-2 fw-semibold text-success" style="cursor:pointer;" (click)="refreshTable()"><i class="bi bi-arrow-clockwise fs-2"></i></div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body py-3">
+    <div class="table-responsive">
+      <table class="table align-middle gs-0 gy-4">
+        <thead>
+          <tr class="fw-bolder text-muted bg-light">
+            <th class="ps-4 min-w-100px rounded-start text-center">User</th>
+            <th class="min-w-125px text-center">Name</th>
+            <th class="min-w-150px text-center">Order ID</th>
+            <th class="min-w-150px text-center">Order Type</th>
+            <th class="min-w-100px text-center">Amount</th>
+            <th class="min-w-150px text-center">Date</th>
+            <th class="text-center min-w-100px">Status</th>
+            <th class="text-center min-w-70px">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders | async">
+            <td class="text-center pe-0">
+              <span class="fw-bold text-hover-primary cursor-pointer" (click)="viewUserProfile(order.user)">{{order.email}}</span>
+            </td>
+
+            <td class="text-center pe-0">
+              <span class="fw-bold">{{order.orderName}}</span>
+            </td>
+            <td class="text-center pe-0">
+              <span class="fw-bold">{{order.id}}</span>
+            </td>
+            <td class="text-center pe-0">
+              <span class="fw-bold ms-3">{{order.orderType}}</span>
+            </td>
+            <td class="text-center pe-0">
+              <span class="fw-bold">{{order.totalPrice | currency:'MYR'}}</span>
+            </td>
+            <td class="text-center pe-0">
+              <span class="fw-bold">{{order.createdAt|date:'medium'}}</span>
+            </td>
+            <td class="text-center pe-0">
+              <div class="badge"
+              [ngClass]="order.status === 'NEW'? 'badge-light-success': order.status === 'PAID'? 'badge-light-info': order.status === 'PROCESS'? 'badge-light-dark'  : order.status === 'SHIP'? 'badge-light-info' :order.status === 'DELIVER'? 'badge-light-danger':order.status === 'COMPLETE'? 'badge-light-success':'badge-light-secondary'">
+                {{order.status}}</div>
+            </td>
+            <td class="text-center">
+              <div _ngcontent-cav-c190="" class="d-flex justify-content-end flex-shrink-0">
+                <a _ngcontent-cav-c190="" routerlink="/admin-product/add-product"
+                  (click)="showOrderDetail(content,order)"
+                  class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                  ng-reflect-router-link="/admin-product/add-product"><span _ngcontent-cav-c190=""
+                    ng-reflect-inline-s-v-g="./assets/media/icons/duotune/a" class="svg-icon svg-icon-3"><svg
+                      _ngcontent-cav-c190="" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path _ngcontent-cav-c190="" opacity="0.3"
+                        d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z"
+                        fill="currentColor"></path>
+                      <path _ngcontent-cav-c190=""
+                        d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z"
+                        fill="currentColor"></path>
+                    </svg></span>
+                </a>
+                <a _ngcontent-cav-c190="" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"><span
+                    (click)="deleteOrder(order.id)" _ngcontent-cav-c190=""
+                    ng-reflect-inline-s-v-g="./assets/media/icons/duotune/g" class="svg-icon svg-icon-3"><svg
+                      _ngcontent-cav-c190="" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path _ngcontent-cav-c190=""
+                        d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
+                        fill="currentColor"></path>
+                      <path _ngcontent-cav-c190="" opacity="0.5"
+                        d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
+                        fill="currentColor"></path>
+                      <path _ngcontent-cav-c190="" opacity="0.5"
+                        d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="currentColor">
+                      </path>
+                    </svg></span>
+                </a>
+              </div>
+            </td>
+            <ng-template #content let-modal>
+              <div class="modal-header">
+                <h4 class="modal-title">Order Detail</h4>
+                <button type="button" class="btn-close" aria-label="Close"
+                  (click)="modal.dismiss('Cross click')"></button>
+              </div>
+
+              <div class="modal-body pt-5 pb-5">
+                <form class="mb-8 form" [formGroup]="orderForm">
+                  <div class="row py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <label class="col-lg-3 col-form-label fs-5 fw-bold text-dark text-hover-primary"
+                      style="padding-left: 25px;">Order ID</label>
+                    <div class="col-lg-9 fv-row fv-plugins-icon-container">
+                      <input type="text" class="form-control form-control-lg form-control-solid"
+                        formControlName="id" readonly="readonly">
+                      <div class="fv-plugins-message-container invalid-feedback"></div>
+                    </div>
+                  </div>
+                  <div class="row py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <label class="col-lg-3 col-form-label fs-5 fw-bold text-dark text-hover-primary"
+                      style="padding-left: 25px;">Order Created At</label>
+                    <div class="col-lg-9 fv-row fv-plugins-icon-container">
+                      <input type="text" class="form-control form-control-lg form-control-solid"
+                        formControlName="createdAt"  readonly="readonly">
+                      <div class="fv-plugins-message-container invalid-feedback"></div>
+                    </div>
+                  </div>
+                  <div class="row py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <label class="col-lg-3 col-form-label fs-5 fw-bold text-dark text-hover-primary"
+                      style="padding-left: 25px;">Name</label>
+                    <div class="col-lg-9 fv-row fv-plugins-icon-container">
+                      <input type="text" class="form-control form-control-lg form-control-light"
+                        formControlName="orderName">
+                      <div class="fv-plugins-message-container invalid-feedback">
+                        <app-input-validation [control]="fc.orderName" [showErrorsWhen]="isSubmit"></app-input-validation>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <label class="col-lg-3 col-form-label fs-5 fw-bold text-dark text-hover-primary"
+                      style="padding-left: 25px;">Email</label>
+                    <div class="col-lg-9 fv-row fv-plugins-icon-container">
+                      <input type="text" class="form-control form-control-lg form-control-light"
+                        formControlName="email">
+                      <div class="fv-plugins-message-container invalid-feedback">
+                        <app-input-validation [control]="fc.email" [showErrorsWhen]="isSubmit"></app-input-validation>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <label class="col-lg-3 col-form-label fs-5 fw-bold text-dark text-hover-primary"
+                      style="padding-left: 25px;">Country</label>
+                    <div class="col-lg-9 fv-row fv-plugins-icon-container">
+                      <input type="text" class="form-control form-control-lg form-control-light"
+                        formControlName="country">
+                      <div class="fv-plugins-message-container invalid-feedback">
+                        <app-input-validation [control]="fc.country" [showErrorsWhen]="isSubmit"></app-input-validation>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <label class="col-lg-3 col-form-label fs-5 fw-bold text-dark text-hover-primary"
+                      style="padding-left: 25px;">Phone</label>
+                    <div class="col-lg-9 fv-row fv-plugins-icon-container">
+                      <input type="text" class="form-control form-control-lg form-control-light"
+                        formControlName="phone">
+                      <div class="fv-plugins-message-container invalid-feedback">
+                        <app-input-validation [control]="fc.phone" [showErrorsWhen]="isSubmit"></app-input-validation>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <label class="col-lg-3 col-form-label fs-5 fw-bold text-dark text-hover-primary"
+                      style="padding-left: 25px;">Order Type</label>
+                    <div class="col-lg-9 fv-row fv-plugins-icon-container">
+                      <select class="form-select form-control form-control-light" formControlName="orderType">
+                        <option value="Delivery">Delivery</option>
+                        <option value="Pick-up">Pick-up</option>
+                      </select>
+                      <div class="fv-plugins-message-container invalid-feedback">
+                        <app-input-validation [control]="fc.orderType" [showErrorsWhen]="isSubmit"></app-input-validation>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <label class="col-lg-3 col-form-label fs-5 fw-bold text-dark text-hover-primary"
+                      style="padding-left: 25px;">Amount</label>
+                    <div class="col-lg-9 fv-row fv-plugins-icon-container">
+                      <input type="text" class="form-control form-control-lg form-control-light"
+                        formControlName="totalPrice">
+                      <div class="fv-plugins-message-container invalid-feedback">
+                        <app-input-validation [control]="fc.totalPrice" [showErrorsWhen]="isSubmit"></app-input-validation>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <label class="col-lg-3 col-form-label fs-5 fw-bold text-dark text-hover-primary"
+                      style="padding-left: 25px;">Payment</label>
+                    <div class="col-lg-9 fv-row fv-plugins-icon-container">
+                      <input *ngIf="order.paymentId" type="text" class="form-control form-control-lg form-control-light"
+                        formControlName="paymentId">
+                      <div *ngIf="order.paymentSlip">
+                        <input class="mb-6" type="file" name="paymentSlip" (change)="previewImage($event)">
+                        <div><img src="{{imageURL}}" style="width: 150px;height: 150px;"></div>
+                      </div>
+                      <div class="fv-plugins-message-container invalid-feedback"></div>
+                    </div>
+                  </div>
+                  <div class="row py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <label class="col-lg-3 col-form-label fs-5 fw-bold text-dark text-hover-primary"
+                      style="padding-left: 25px;">Status</label>
+                    <div class="col-lg-9 fv-row fv-plugins-icon-container">
+                      <!-- <input type="text" class="form-control form-control-lg form-control-light"
+                        formControlName="status"> -->
+                      <select class="form-select form-control form-control-light" formControlName="status">
+                        <option value="NEW">NEW</option>
+                        <option value="PAID">PAID</option>
+                        <option value="PROCESS">PROCESS</option>
+                        <option value="SHIP">SHIP</option>
+                        <option value="CANCELED">CANCELED</option>
+                        <option value="REFUND">REFUND</option>
+                        <option value="DELIVER">DELIVER</option>
+                        <option value="COMPLETE">COMPLETE</option>
+                      </select>
+                      <div class="fv-plugins-message-container invalid-feedback">
+                        <app-input-validation [control]="fc.status" [showErrorsWhen]="isSubmit"></app-input-validation>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <label class="col-lg-3 col-form-label fs-5 fw-bold text-dark text-hover-primary"
+                      style="padding-left: 25px;">Receive Time</label>
+                    <div class="col-lg-9 fv-row fv-plugins-icon-container">
+                      <!-- <input type="text"  class="form-control form-control-lg form-control-light"
+                        formControlName="receiveOrdertime"> -->
+                      <select class="form-select form-control form-control-light" formControlName="receiveOrdertime">
+                        <option value="10.00am - 12.00pm">10.00am - 12.00pm</option>
+                        <option value="5.00pm - 7.00pm">5.00pm - 7.00pm</option>
+                      </select>
+                      <div class="fv-plugins-message-container invalid-feedback">
+                        <app-input-validation [control]="fc.receiveOrdertime" [showErrorsWhen]="isSubmit"></app-input-validation>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row py-5 border-bottom border-gray-300 border-bottom-dashed">
+                    <label class="col-lg-3 col-form-label fs-5 fw-bold text-dark text-hover-primary"
+                      style="padding-left: 25px;">Receive Date</label>
+                    <div class="col-lg-9 fv-row fv-plugins-icon-container">
+                      <div class="input-group">
+                        <input class="form-control form-control-light" name="dp" formControlName="receiveOrderDate"
+                          ngbDatepicker #d="ngbDatepicker">
+                        <button class="btn" style="background-color: #5b5f74;;" (click)="d.toggle()" type="button"><i
+                            class="bi bi-calendar3" style="color: Azure;"></i></button>
+                      </div>
+                      <div class="fv-plugins-message-container invalid-feedback">
+                        <span *ngIf="fc.receiveOrderDate.errors?.ngbDate?.invalid && fc.receiveOrderDate.dirty">Your date must be in format (Ex: yyyy-mm-dd).</span>
+                        <app-input-validation [control]="fc.receiveOrderDate" [showErrorsWhen]="isSubmit"></app-input-validation>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row py-5 border-bottom border-gray-300 border-bottom-dashed"
+                    *ngIf="order.additionalInfo !== ''">
+                    <label class="col-lg-3 col-form-label fs-5 fw-bold text-dark text-hover-primary"
+                      style="padding-left: 25px;">Additional Info</label>
+                    <div class="col-lg-9 fv-row fv-plugins-icon-container">
+                      <input type="text" class="form-control form-control-lg form-control-light"
+                        formControlName="additionalInfo">
+                      <div class="fv-plugins-message-container invalid-feedback"></div>
+                    </div>
+                  </div>
+                  <div class="row py-5 border-bottom border-gray-300 border-bottom-dashed" *ngIf="order.address">
+                    <label class="col-lg-3 col-form-label fs-5 fw-bold text-dark text-hover-primary"
+                      style="padding-left: 25px;">Address</label>
+                    <div class="col-lg-9 fv-row fv-plugins-icon-container">
+                      <input type="text" class="form-control form-control-lg form-control-light"
+                        formControlName="address">
+                      <div class="fv-plugins-message-container invalid-feedback"></div>
+                    </div>
+                  </div>
+                  <app-map [order]="order" [readonly]="true" *ngIf="order.addressLatLng"></app-map>
+
+                  <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3 mt-10">
+                    <thead>
+                      <tr class="fw-bolder text-muted">
+                        <th class="min-w-100px text-center">Product</th>
+                        <th class="min-w-100px text-center">Quantity</th>
+                        <th class="min-w-100px text-center">Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of order.item">
+                        <td class="pe-0 text-center">
+                          <div>
+                            <img src="{{item.product.imageUrl}}" class="w-50px h-50px rounded-3 me-3" alt="">
+                            <span
+                              class="fw-bold text-gray-800 cursor-pointer text-hover-primary fs-6 me-1">{{item.product.name}}</span>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <span
+                            class="border-0 text-center px-0 fs-3 fw-bold text-gray-800 w-30px">x{{item.quantity}}</span>
+                        </td>
+                        <td class="text-center">
+                          <span class="fw-bold text-primary fs-2"
+                            data-kt-pos-element="item-total">{{item.product.price.priceValue|currency:"MYR"}}</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </form>
+              </div>
+              <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary" (click)="saveOrder()">Save</button>
+              </div>
+            </ng-template>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

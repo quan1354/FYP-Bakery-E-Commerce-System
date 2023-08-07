@@ -1,0 +1,272 @@
+<div class="card">
+  <div class="card-body p-lg-17">
+    <div class="mb-10">
+      <div class="text-center mb-10">
+        <h3 class="fs-2hx text-dark mb-5">About Us</h3>
+        <div class="fs-1 text-muted fw-semibold">100% naturally leavened bread, made with natural ingredients, love
+          and patience.</div>
+      </div>
+      <div>
+        <img class="w-100 card-rounded" src="http://localhost:5000/uploads/bakery2.jpg" alt="" />
+      </div>
+      <!-- <div class="overlay">
+        <img class="w-100 card-rounded" src="assets/bakery/bakery2.jpg" alt="" />
+        <div class="overlay-layer card-rounded bg-dark bg-opacity-25">
+          <a href="../../demo1/dist/pages/pricing/pricing-2.html" class="btn btn-primary">Info</a>
+        </div>
+      </div> -->
+    </div>
+    <div class="fs-5 fw-semibold text-gray-600">
+      <div>
+        <h3 class="fs-2hx text-dark mb-0">Our Brand</h3>
+        <p class="textContent content">From the initials of the bakers, L and E, combining with pan, which
+          means bread in Japanese, we want to honour the origins of our baking
+          journey through the brand name. Born in Penang in 2020 for the love of
+          our quaint little island, we want to create our legacy here by offering
+          high-quality, delicious baked goods through organic and all-natural
+          ingredients to bring gastronomy enjoyment to our customers. We hope
+          you find something that you like!</p>
+      </div>
+      <div>
+        <h3 class="fs-2hx text-dark mb-0">Our Bread</h3>
+        <p class="textContent content">
+          Our bread and loaves are from self-cultivated yeast that requires much care and
+          love. Naturally cultivated yeast breaks down harmful enzymes like lectin, gluten
+          and phytates in grains. With long fermentation hours (we use at least 72 hours),
+          the natural bacteria and wild yeast digest the complex starches and sugar. The
+          longer the dough is fermented, the more it breaks down.<br>
+          Along with Japanese baking method, it produces more digestable, soft and
+          fluffy bread, which is also preferred for Asian consumption. Enjoy LEPAN baked
+          goods without worries as they are vegan―free from eggs and dairy.
+        </p>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="d-flex flex-column">
+            <h3 class="fs-2hx text-dark mb-0" style="text-align: center;">Bread Storage</h3>
+            <ul>
+              <li class="d-flex align-items-center py-2">
+                <span class="textContent content"><span class="text-dark">ROOM TEMPERATURE</span><br> Keep in an
+                  airtight
+                  container for up to 3 days </span>
+              </li>
+              <li class="d-flex align-items-center py-2">
+                <span class="textContent content" style="padding-top: 0;"><span class="text-dark">FREEZER</span><br>
+                  Store bread in an airtight bag or
+                  container.
+                  For loaves, slice the bread first before storing in freezer. Consume within 2
+                  weeks for best freshness.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex flex-column">
+            <h3 class="fs-2hx text-dark mb-0" style="text-align: center;">Reheat Bread</h3>
+            <ul>
+              <li class="d-flex align-items-center py-2">
+                <span class="textContent content"><span class="text-dark">PAN</span><br> Warm the bread in a pan on low
+                  heat for 3-5 minutes on each side. </span>
+              </li>
+              <li class="d-flex align-items-center py-2">
+                <span class="textContent content" style="padding-top: 0;"><span class="text-dark">OVEN</span><br>
+                  Preheat oven at 180ºC. Bake the bread for 3-5 minutes.
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="mb-16">
+      <div class="text-center mb-12">
+        <i>
+          <h3 class="fs-2hx text-dark mb-5">Delicious, healthy foods need not come
+            with additives, artificial flavouring and
+            colouring, and food enhancers.</h3>
+        </i>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card-xl-stretch me-md-6">
+            <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-250px mb-4"
+              style="background-image:url('http://localhost:5000/uploads/about2.jpg')"></div>
+            <div class="m-0" [ngClass]="{'limitTextHeight': isReadMore}">
+              <p class="fs-4 text-dark fw-bold text-dark lh-base">organic ingredients and natural colour</p>
+              <div class="fw-semibold fs-5 text-gray-600 text-dark mt-3 mb-5">
+                We believe the most authentic bread tastes comes from the natural food
+                ingredients prepared right. All the fresh produce we use are organic and
+                biodynamic, with some from local small-scale farmers. This is our way of
+                supporting local organic farmers for a more sustainable supply chain. <br><br>
+                Our bread and ingredients used are free from additives, GMO, artificial flavouring
+                and colouring, preservatives and food enhancers. The eye-pleasing colours and
+                fantastic flavours in our bread are from fruits and vegetables. You can also taste
+                the aroma of the grains in our organic wheat flour
+              </div>
+            </div>
+            <a class="text-primary fs-5 fw-semibold" style="cursor: pointer;text-decoration: underline;"
+              (click)="showMoreText()">
+              {{isReadMore ? 'Read More': 'Read Less'}}
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-xl-stretch me-md-6">
+            <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-250px mb-4"
+              style="background-image:url('http://localhost:5000/uploads/about1.png')"></div>
+            <div class="m-0" [ngClass]="{'limitTextHeight': isReadMore}">
+              <p class="fs-4 text-dark fw-bold text-dark lh-base">premium whole grain flours</p>
+              <div class="fw-semibold fs-5 text-gray-600 text-dark mt-3 mb-5">
+                We use organic flours Made from wholesome grains grown organically at the
+                foothill of the German Alps, Aichermuhle, one of the oldest family-owned
+                companies in Bavaria since 1461. Choosing whole-grain flours with no
+                preservatives or additives over refined flours ensures that the nutrient-rich
+                contents are preserved in our baked goods.
+              </div>
+            </div>
+            <a class="text-primary fs-5 fw-semibold" style="cursor: pointer;text-decoration: underline;"
+              (click)="showMoreText()">
+              {{isReadMore ? 'Read More': 'Read Less'}}
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-xl-stretch me-md-6">
+            <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-250px mb-4"
+              style="background-image:url('http://localhost:5000/uploads/about3.jpg')"></div>
+            <div class="m-0" [ngClass]="{'limitTextHeight': isReadMore}">
+              <p class="fs-4 text-dark fw-bold text-dark lh-base">high oleic organic cooking oil</p>
+              <div class="fw-semibold fs-5 text-gray-600 text-dark mt-3 mb-5">
+                We use Emile Noel organic cooking oil from France in our baking. Made
+                from 100% high oleic sunflower seed oil, the cold-pressed cooking oil is
+                high in omega-9, which is essential fatty acids considered to help in
+                reducing the risk of cardiovascular disease and stroke, but low in omega-3
+                and 6. Emile Noel cooking oil is certified organic and has 100 years of
+                history. This cold pressed oil retains its original flavour and
+                nutrients through traditional screw press technique. It has a high
+                smoke point, making it a healthy option for most types of cooking,
+                including baking.
+              </div>
+            </div>
+            <a class="text-primary fs-5 fw-semibold" style="cursor: pointer;text-decoration: underline;"
+              (click)="showMoreText()">
+              {{isReadMore ? 'Read More': 'Read Less'}}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mb-10">
+      <h3 class="fs-2hx text-dark mb-5">Our Team</h3>
+    </div>
+    <div class="card bg-light mb-18">
+      <div class="card-body py-15">
+        <div class="d-flex flex-center">
+          <div class="d-flex justify-content-between mx-auto w-xl-1000px">
+            <div class="text-center">
+              <div
+                class="overlay octagon mx-auto bg-body mb-5 d-flex w-200px h-200px bgi-no-repeat bgi-size-contain bgi-position-center"
+                style="background-image:url('http://localhost:5000/uploads/baker1.png')">
+                <div class="overlay-layer card-rounded bg-dark bg-opacity-25" (click)="open(content,'L')">
+                  <i class="bi bi-eye-fill fs-2x text-white"></i>
+                </div>
+              </div>
+              <div class="mb-0">
+                <a href="#" class="text-dark fw-bold text-hover-info fs-3">L</a>
+                <div class="text-primary fs-6 fw-semibold mt-1">Baker</div>
+              </div>
+            </div>
+            <div class="text-center">
+              <div
+                class="overlay octagon mx-auto bg-body mb-5 d-flex w-200px h-200px bgi-no-repeat bgi-size-contain bgi-position-center"
+                style="background-image:url('http://localhost:5000/uploads/baker2.png')">
+                <div class="overlay-layer card-rounded bg-dark bg-opacity-25" (click)="open(content,'E')">
+                  <i class="bi bi-eye-fill fs-2x text-white"></i>
+                </div>
+              </div>
+              <div class="mb-0">
+                <a href="#" class="text-dark fw-bold text-hover-info fs-3">E</a>
+                <div class="text-primary fs-6 fw-semibold mt-1">Baker</div>
+              </div>
+            </div>
+            <div class="text-center">
+              <div
+                class="overlay octagon mx-auto bg-body mb-5 d-flex w-200px h-200px bgi-no-repeat bgi-size-contain bgi-position-center"
+                style="background-image:url('http://localhost:5000/uploads/senshi1.png')">
+                <div class="overlay-layer card-rounded bg-dark bg-opacity-25" (click)="open(content,'Senshi')">
+                  <i class="bi bi-eye-fill fs-2x text-white"></i>
+                </div>
+              </div>
+              <div class="mb-0">
+                <a href="#" class="text-dark fw-bold text-hover-info fs-3">Hirai san </a>
+                <div class="text-primary fs-6 fw-semibold mt-1">Sensei</div>
+              </div>
+            </div>
+            <div class="text-center">
+              <div
+                class="overlay octagon mx-auto bg-body mb-5 d-flex w-200px h-200px bgi-no-repeat bgi-size-contain bgi-position-center"
+                style="background-image:url('http://localhost:5000/uploads/senshi2.png')">
+                <div class="overlay-layer card-rounded bg-dark bg-opacity-25" (click)="open(content,'Senshi')">
+                  <i class="bi bi-eye-fill fs-2x text-white"></i>
+                </div>
+              </div>
+              <div class="mb-0">
+                <a href="#" class="text-dark fw-bold text-hover-info fs-3">Shin san</a>
+                <div class="text-primary fs-6 fw-semibold mt-1">Sensei</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-4 bg-light text-center">
+      <div class="card-body py-12">
+        <a href="https://www.facebook.com/lepan.penang/" class="mx-4">
+          <img src="assets/media/svg/brand-logos/facebook-4.svg" class="h-30px my-2" alt="" />
+        </a>
+        <a href="https://www.instagram.com/lepan.penang/?hl=en" class="mx-4">
+          <img src="assets/media/svg/brand-logos/instagram-2-1.svg" class="h-30px my-2" alt="" />
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Person Info</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body fs-5 fw-semibold text-gray-600">
+    <div *ngIf="bioContent === 'L'">
+      L joined Real Food while she was pursuing tertiary education in design. She
+      discovered the love for bread making through her colleague Miki san who
+      baked for Real Food. To her, bread making is like an art. Besides great tastes
+      and textures, she hopes her efforts, love and experience can be conveyed
+      through her bread to the customers.<br><br>
+      <span class="text-dark">L’s favourite LEPAN bread: multiflavoured loaves & cinnamon roll</span>
+    </div>
+    <div *ngIf="bioContent === 'E'">
+      E returned to Penang to be with her family after a significant stint in an
+      organic cafe and exciting adventures in other countries. She has been heavily
+      influenced by vegetarian and healthy lifestyle through her previous work and
+      thus continued her path with Real Food. Today she is grateful to find her true
+      passion in baking healthy breads for others.<br><br>
+      <span class="text-dark">E’s favourite LEPAN bread: pumpkin loaf and walnut raisin French bread</span>
+    </div>
+    <div *ngIf="bioContent === 'Senshi'">
+      L joined Real Food while she was pursuing tertiary education in design. She
+      L and E received their training from Shin san and Hirai san from Japan,
+      both experienced bakers. Shin san generously taught L and E in baking
+      various types of breads such as burger bun, milk loaf, ciabatta and
+      baguette. Their passion towards baking grew even further through Hirai
+      san. They begin to see breads not just as a daily food but it can also be
+      a gift for their loved ones for any occasion.
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>

@@ -1,0 +1,260 @@
+
+<!--to show order details-->
+<div class="card mb-10">
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="fw-bolder">Order Summary #{{(orderObservable|async)?.id}}</h3>
+    </div>
+  </div>
+  <div class="card-body p-9">
+    <div class="row mb-2">
+      <div class="col-lg-6">
+        <div class="row">
+          <label class="col-lg-4 fw-bold text-muted mb-4 text-center">Order Type</label>
+          <div class="col-lg-8"><span class="fw-bolder fs-6 text-dark">{{(orderObservable|async)?.orderType}}</span></div>
+          <label class="col-lg-4 fw-bold text-muted mb-4 text-center">Name</label>
+          <div class="col-lg-8"><span class="fw-bolder fs-6 text-dark">{{(orderObservable|async)?.orderName}}</span></div>
+          <label class="col-lg-4 fw-bold text-muted mb-4 text-center">Email</label>
+          <div class="col-lg-8"><span class="fw-bolder fs-6 text-dark">{{(orderObservable|async)?.email}}</span></div>
+          <label class="col-lg-4 fw-bold text-muted mb-4 text-center">Phone</label>
+          <div class="col-lg-8"><span class="fw-bolder fs-6 text-dark">{{(orderObservable|async)?.phone}}</span></div>
+          <label class="col-lg-4 fw-bold text-muted mb-4 text-center">Receive time</label>
+          <div class="col-lg-8"><span class="fw-bolder fs-6 text-dark">{{(orderObservable|async)?.receiveOrdertime}}</span></div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="row">
+          <label class="col-lg-4 fw-bold text-muted mb-4 text-center">Receive Date</label>
+          <div class="col-lg-8"><span class="fw-bolder fs-6 text-dark">{{(orderObservable|async)?.receiveOrderDate | date:"medium"}}</span>
+          </div>
+          <label class="col-lg-4 fw-bold text-muted mb-4 text-center">Country</label>
+          <div class="col-lg-8"><span class="fw-bolder fs-6 text-dark">{{(orderObservable|async)?.country}}</span></div>
+          <label class="col-lg-4 fw-bold text-muted mb-4 text-center">Total Price</label>
+          <div class="col-lg-8"><span class="fw-bolder fs-6 text-primary">{{(orderObservable|async)?.totalPrice | currency:"MYR"}}</span>
+          </div>
+          <label class="col-lg-4 fw-bold text-muted mb-4 text-center" *ngIf="order.additionalInfo">Additional Info</label>
+          <div class="col-lg-8" *ngIf="order.additionalInfo"><span class="fw-bolder fs-6 text-dark">{{(orderObservable|async)?.additionalInfo}}</span></div>
+          <label class="col-lg-4 fw-bold text-muted mb-4 text-center" *ngIf="order.address">Address</label>
+          <div class="col-lg-8"><span class="fw-bolder fs-6 text-dark" *ngIf="order.address">{{(orderObservable|async)?.address}}</span>
+          </div>
+        </div>
+      </div>
+      <app-map [order]="order" [readonly]="true" *ngIf="order.addressLatLng"></app-map>
+    </div>
+    <div class="separator border-primary my-10"></div>
+    <table
+      class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3 mx-auto mw-600px w-100 pt-15 pb-10">
+      <thead>
+        <tr class="fw-bolder text-muted">
+          <th class="min-w-100px text-center">Product</th>
+          <th class="min-w-100px text-center">Quantity</th>
+          <th class="min-w-100px text-center">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of (orderObservable|async)?.item">
+          <td class="pe-0 text-center">
+            <div>
+              <img src="{{item.product.imageUrl}}" class="w-50px h-50px rounded-3 me-3" alt="">
+              <span
+                class="fw-bold text-gray-800 cursor-pointer text-hover-primary fs-6 me-1">{{item.product.name}}</span>
+            </div>
+          </td>
+          <td class="text-center">
+            <span class="border-0 text-center px-0 fs-3 fw-bold text-gray-800 w-30px">x{{item.quantity}}</span>
+          </td>
+          <td class="text-center">
+            <span class="fw-bold text-primary fs-2"
+              data-kt-pos-element="item-total">{{item.product.price.priceValue|currency:"MYR"}}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!--to choose payment method-->
+<div class="card card-custom">
+  <div class="card-header card-header-stretch overflow-auto" style="margin: auto;">
+    <ul class="
+        nav nav-stretch nav-line-tabs
+        fw-bold
+        border-transparent
+        flex-nowrap
+      " role="tablist">
+      <li class="nav-item">
+        <a class="nav-link cursor-pointer" role="tab" (click)="setActivePayTab('paypal')"
+          [ngClass]="{active: activePayType === 'paypal'}">
+          Paypal
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link cursor-pointer" role="tab" (click)="setActivePayTab('card')"
+          [ngClass]="{active: activePayType === 'card'}">
+          Card
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link cursor-pointer" role="tab" (click)="setActivePayTab('photo')"
+          [ngClass]="{active: activePayType === 'photo'}">
+          Photo
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <div class="tab-content pt-3">
+      <div class="tab-pane" [ngClass]="{ active: activePayType === 'paypal' }">
+        <app-paypal [order]="order" style="text-align: center;"></app-paypal>
+      </div>
+    </div>
+    <div class="tab-content pt-3">
+      <div class="tab-pane" [ngClass]="{ active: activePayType === 'card' }">
+        <div class="mx-auto mw-600px w-100 pt-15 pb-10">
+          <div class="pb-10 pb-lg-15">
+            <h2 class="fw-bolder text-dark">Billing Details</h2>
+            <div class="text-gray-400 fw-bold fs-6">
+              If you need more info, please check out
+              <a href="#" class="text-primary fw-bolder">Help Page</a>.
+            </div>
+          </div>
+          <div>
+            <div class="d-flex flex-column mb-7 fv-row">
+              <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Name On
+                  Card</span><i class="fas fa-exclamation-circle ms-2 fs-7"
+                  ngbTooltip="Specify a card holder's name"></i></label><input type="text"
+                class="form-control form-control-solid" placeholder="Name on card" />
+
+            </div>
+            <div class="d-flex flex-column mb-7 fv-row">
+              <label class="required fs-6 fw-bold form-label mb-2">Card Number</label>
+              <div class="position-relative">
+                <input type="text" class="form-control form-control-solid" placeholder="Enter card number" />
+
+                <div class="position-absolute translate-middle-y top-50 end-0 me-5">
+                  <img src="./assets/media/svg/card-logos/visa.svg" alt="" class="h-25px" /><img
+                    src="./assets/media/svg/card-logos/mastercard.svg" alt="" class="h-25px" /><img
+                    src="./assets/media/svg/card-logos/american-express.svg" alt="" class="h-25px" />
+                </div>
+              </div>
+            </div>
+            <div class="row mb-10">
+              <div class="col-md-8 fv-row">
+                <label class="required fs-6 fw-bold form-label mb-2">Expiration Date</label>
+                <div class="row fv-row">
+                  <div class="col-6">
+                    <select class="form-select form-select-solid">
+                      <option></option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <select class="form-select form-select-solid">
+                      <option></option>
+                      <option value="2021">2021</option>
+                      <option value="2022">2022</option>
+                      <option value="2023">2023</option>
+                      <option value="2024">2024</option>
+                      <option value="2025">2025</option>
+                      <option value="2026">2026</option>
+                      <option value="2027">2027</option>
+                      <option value="2028">2028</option>
+                      <option value="2029">2029</option>
+                      <option value="2030">2030</option>
+                      <option value="2031">2031</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 fv-row">
+                <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span
+                    class="required">CVV</span><i class="fas fa-exclamation-circle ms-2 fs-7"
+                    ngbTooltip="Enter a card CVV code"></i></label>
+                <div class="position-relative">
+                  <input type="text" class="form-control form-control-solid" minlength="3" maxlength="4"
+                    placeholder="CVV" />
+                  <div class="position-absolute translate-middle-y top-50 end-0 me-3">
+                    <span class="svg-icon svg-icon-2hx"
+                      [inlineSVG]="'./assets/media/icons/duotune/finance/fin002.svg'"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex flex-stack">
+              <div class="me-5">
+                <label class="fs-6 fw-bold form-label">Save Card for further billing?</label>
+                <div class="fs-7 fw-bold text-gray-400">
+                  If you need more info, please check budget planning
+                </div>
+              </div>
+              <label class="form-check form-switch form-check-custom form-check-solid"><input class="form-check-input"
+                  type="checkbox" value="1" /><span class="form-check-label fw-bold text-gray-400">Save
+                  Card</span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content pt-3">
+      <div class="tab-pane" [ngClass]="{ active: activePayType === 'photo' }">
+        <div class="fv-row mx-auto mw-600px w-100" style="text-align-last: center;">
+
+          <div class="text-dark fw-bold mb-15" style="font-size: 20px;">
+            Make your payment to T&G E-wallet and attach the payment screenshot<br>
+            <span class="text-primary">019-796 8130</span>
+          </div>
+          <!-- <div class="dropzone">
+                  <div class="dz-message needsclick">
+                      <i class="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
+                      <div class="ms-4">
+                          <h3 class="fs-5 fw-bold text-gray-900 mb-1">Drop files here or click to upload.</h3>
+                          <a (click)="selectFile.click()"></a>
+                      </div>
+                  </div>
+              </div> -->
+          <div>
+            <input class="mb-15" type="file" name="paymentSlip" accept=".png, .jpg, .jpeg" (change)="uploadImage($event)">
+          </div>
+          <div>
+            <img *ngIf="showImageSlip" [src]="showImageSlip|async" style="width: 150px;height: 150px;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- begin::Footer -->
+  <div class="card-footer py-6 text-center" [ngStyle]="{'display': activePayType === 'paypal'?'none':'block'}">
+    <!-- <button type="button" (click)="submitPreview()" class="btn btn-primary me-2"
+          [disabled]="configLoading || resetLoading">
+          <ng-container *ngIf="!configLoading">
+            <span class="indicator-label">Make Payment</span>
+          </ng-container>
+          <ng-container *ngIf="configLoading">
+            <span class="indicator-progress" [style.display]="'block'">
+              Please wait...{{ " " }}
+              <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+            </span>
+          </ng-container>
+        </button> -->
+    <a class="btn btn-primary me-2">
+      <ng-container>
+        <span class="indicator-label" (click)="makePayment()">Make Payment</span>
+      </ng-container>
+    </a>
+  </div>
+
+  <!-- end::Footer -->
+
+</div>

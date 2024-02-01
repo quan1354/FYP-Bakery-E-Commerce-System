@@ -2,17 +2,17 @@
 different componenet; frontend, backend and AI model**
 
 # Frontend - Angular and user interface
-To run :
-npm install --force
-npm start
+To run : <br>
+npm install --force <br>
+npm start <br>
 
 # Backend - Express and node.js server and Database
-To run :
-npm install --force
-npm start
+To run : <br>
+npm install --force <br>
+npm start <br>
 
 # AI model main - code for Chatbot and Recommendation system
-Those model use virtual environment to compile for resolve computer not installed some python library
-To run :
-venv\Scripts\activate
-python main.py
+Those model use virtual environment to compile for resolve computer not installed some python library <br>
+To run : <br>
+venv\Scripts\activate <br>
+python main.py <br>
